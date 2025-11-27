@@ -1,6 +1,7 @@
 ﻿using BLD.Web;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Internal;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace ConsoleApp1
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             string login;
             string password;
@@ -22,23 +23,30 @@ namespace ConsoleApp1
             login = Console.ReadLine();
             password = ConsolePassword.ReadPassword();
 
+            //pré configurações
             ChromeOptions options = new ChromeOptions();
             options.AddArgument("--start-maximized");
             Versionador v = new Versionador();
             var chromeDriverService = ChromeDriverService.CreateDefaultService(v.versaoChromeDriver());
             chromeDriverService.HideCommandPromptWindow = true;
+            ChromeDriver driver = new ChromeDriver(chromeDriverService, options: options);
 
-            using (ChromeDriver driver = new ChromeDriver(chromeDriverService, options: options))
-            {
-                driver.Navigate().GoToUrl("https://github.com/login");
-                WaitForLoad(driver);
-                IWebElement Web = driver.FindElement(By.Name("login"));
-                Web.SendKeys(login);
-                Web = driver.FindElement(By.Name("password"));
-                Web.SendKeys(password);
-                WaitForLoad(driver);
+            //execução de login
+            driver.Navigate().GoToUrl("https://github.com/login");
+            IWebElement Web = driver.FindElement(By.Name("login"));
+            Web.Clear();
+            Web.SendKeys(login);
 
-            }
+            Web = driver.FindElement(By.Name("password"));
+            Web.Clear();
+            Web.SendKeys(password);
+            driver.FindElement(By.Name("commit")).Click();
+            driver.FindElement(By.XPath("/html/body/div[1]/div[3]/main/div/div[2]/div[2]/div[3]/button")).Click();
+            driver.FindElement(By.XPath("//*[@id='two-factor-alternatives-body']/li[1]/a")).Click();
+            driver.FindElement(By.CssSelector("body > div.logged-out.env-production.page-responsive.page-two-factor-auth.session-authentication > div.application-main > main > div > div.authentication-body > div.authentication-body-buttons > form > button")).Click();
+
+            WaitForLoad(driver);
+            //Thread.Sleep(TimeSpan.FromSeconds(50000));
         }
 
         static void WaitForLoad(ChromeDriver driver)
