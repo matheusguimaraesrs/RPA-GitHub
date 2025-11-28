@@ -51,7 +51,11 @@ namespace ConsoleApp1
             IWebElement codeWeb = driver.FindElement(By.Name("sms_otp"));
             codeWeb.Clear();
             codeWeb.SendKeys(code);
-            driver.FindElement(By.XPath("/html/body/div[1]/div[3]/main/div/div[2]/div[4]/div/form/button")).Click();
+            driver.FindElement(By.XPath("/html/body/div[1]/div[2]/header/div[1]/div[2]/div[4]/deferred-side-panel/include-fragment/react-partial-anchor/button").Click();
+            WaitForLoad(driver);
+            driver.FindElement(By.Id(":r5q:--label  ")).Click();
+            WaitForLoad(driver);
+            driver.FindElement(By.Id(":r21:--label")).Click();
 
             WaitForLoad(driver);
             //Thread.Sleep(TimeSpan.FromSeconds(50000));
