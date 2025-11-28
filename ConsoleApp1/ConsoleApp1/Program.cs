@@ -26,24 +26,32 @@ namespace ConsoleApp1
             //pré configurações
             ChromeOptions options = new ChromeOptions();
             options.AddArgument("--start-maximized");
-            Versionador v = new Versionador();
-            var chromeDriverService = ChromeDriverService.CreateDefaultService(v.versaoChromeDriver());
-            chromeDriverService.HideCommandPromptWindow = true;
-            ChromeDriver driver = new ChromeDriver(chromeDriverService, options: options);
+            ChromeDriver driver = new ChromeDriver(options: options);
 
             //execução de login
             driver.Navigate().GoToUrl("https://github.com/login");
-            IWebElement Web = driver.FindElement(By.Name("login"));
-            Web.Clear();
-            Web.SendKeys(login);
-
-            Web = driver.FindElement(By.Name("password"));
-            Web.Clear();
-            Web.SendKeys(password);
+            IWebElement loginWeb = driver.FindElement(By.Name("login"));
+            loginWeb.Clear();
+            loginWeb.SendKeys(login);
+            IWebElement passwordWeb = driver.FindElement(By.Name("password"));
+            passwordWeb.Clear();
+            passwordWeb.SendKeys(password);
             driver.FindElement(By.Name("commit")).Click();
+            WaitForLoad(driver);
+
+            //verificação de 2 fatores
             driver.FindElement(By.XPath("/html/body/div[1]/div[3]/main/div/div[2]/div[2]/div[3]/button")).Click();
+            WaitForLoad(driver);
             driver.FindElement(By.XPath("//*[@id='two-factor-alternatives-body']/li[1]/a")).Click();
-            driver.FindElement(By.CssSelector("body > div.logged-out.env-production.page-responsive.page-two-factor-auth.session-authentication > div.application-main > main > div > div.authentication-body > div.authentication-body-buttons > form > button")).Click();
+            WaitForLoad(driver);
+            driver.FindElement(By.XPath("/html/body/div[1]/div[3]/main/div/div[2]/div[2]/form")).Click();
+            WaitForLoad(driver);
+            Console.WriteLine("Informe o código de autenticação:");
+            string code = Console.ReadLine();
+            IWebElement codeWeb = driver.FindElement(By.Name("sms_otp"));
+            codeWeb.Clear();
+            codeWeb.SendKeys(code);
+            driver.FindElement(By.XPath("/html/body/div[1]/div[3]/main/div/div[2]/div[4]/div/form/button")).Click();
 
             WaitForLoad(driver);
             //Thread.Sleep(TimeSpan.FromSeconds(50000));
