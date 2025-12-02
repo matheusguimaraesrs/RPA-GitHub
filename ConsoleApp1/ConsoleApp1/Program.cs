@@ -51,7 +51,10 @@ namespace ConsoleApp1
             IWebElement codeWeb = driver.FindElement(By.Name("sms_otp"));
             codeWeb.Clear();
             codeWeb.SendKeys(code);
-            driver.Navigate().GoToUrl("https://github.com/matheusguimaraesrs?tab=repositories");
+
+            driver.FindElement(By.XPath("/html/body/div[1]/div[2]/header/div[1]/div[2]/div[4]/deferred-side-panel/include-fragment/react-partial-anchor/button")).Click();
+            WaitForLoad(driver);
+            driver.FindElement(By.XPath("//*[@id=\"__primerPortalRoot__\"]/div[2]/div/div[2]/div/ul/li[4]")).Click();
             WaitForLoad(driver);
 
             var repoElements = driver.FindElements(By.CssSelector("h3.wb-break-all a"));
@@ -61,7 +64,7 @@ namespace ConsoleApp1
                 Console.WriteLine($"- {repoName}");
             }
             driver.Quit();
-            //Thread.Sleep(TimeSpan.FromSeconds(50000));
+            Console.ReadKey();
         }
 
         static void WaitForLoad(ChromeDriver driver)
