@@ -40,11 +40,11 @@ namespace ConsoleApp1
             WaitForLoad(driver);
 
             //verificação de 2 fatores
-            driver.FindElement(By.XPath("/html/body/div[1]/div[3]/main/div/div[2]/div[2]/div[3]/button")).Click();
+            driver.FindElement(By.XPath("/html/body/div[1]/div[4]/main/div/div[2]/div[2]/div[3]/button")).Click();
             WaitForLoad(driver);
             driver.FindElement(By.XPath("//*[@id='two-factor-alternatives-body']/li[1]/a")).Click();
             WaitForLoad(driver);
-            driver.FindElement(By.XPath("/html/body/div[1]/div[3]/main/div/div[2]/div[2]/form")).Click();
+            driver.FindElement(By.XPath("/html/body/div[1]/div[4]/main/div/div[2]/div[2]/form")).Click();
             WaitForLoad(driver);
             Console.WriteLine("Informe o código de autenticação:");
             string code = Console.ReadLine();
@@ -70,7 +70,7 @@ namespace ConsoleApp1
         static void WaitForLoad(ChromeDriver driver)
         {
             Thread.Sleep(1000);
-            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(30));
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(300));
             wait.Until(wd => driver.ExecuteScript("return document.readyState").ToString() == "complete");
         }
     }
