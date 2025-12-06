@@ -23,7 +23,7 @@ automatizar tarefas repetitivas, baseadas em regras e de alto volume que, tipica
 ## 🎥 Teste Prático
 
 
-<img src="https://github.com/user-attachments/assets/da7f4b59-fbcc-4a03-8d8c-798afb95f6ec" alt="Texto Alt do GIF"/>
+<img src="https://github.com/user-attachments/assets/da7f4b59-fbcc-4a03-8d8c-798afb95f6ec" alt="Texto Alt do GIF" width="600" height="400"/>
 
 
 ---
