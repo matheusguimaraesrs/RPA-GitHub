@@ -1,6 +1,6 @@
 # RPA GitHub
 
-> Automação Web com C# para listar repositórios no GitHub
+Automação Web com C# para listar repositórios no GitHub
 
 ---
 
